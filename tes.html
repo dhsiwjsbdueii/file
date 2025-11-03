@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analisis Fundamental Energi dalam Teknik Mesin</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Lato:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+/* 1. THE SETUP */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #e2e8f0; /* Latar belakang abu-abu muda untuk kontras */
+    display: grid;
+    gap: 20px;
+    grid-template-columns: 1fr;
+    margin: 0;
+    min-height: 100vh;
+    padding: 20px 0;
+    place-items: center;
+}
+
+.slide-container {
+    align-items: center;
+    background-color: #f5f5f5; /* Latar belakang utama: Krem/Off-white */
+    border-radius: 8px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    height: 720px;
+    justify-content: center;
+    overflow: hidden;
+    padding: 60px;
+    position: relative;
+    width: 1280px;
+}
+
+/* 1.1 BACKGROUND STYLING */
+.slide-container::before {
+    content: '';
+    height: 10px; /* Garis aksen tebal di atas */
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    background-color: #003366; /* Biru Navy Gelap */
+    z-index: 2;
+}
+
+.slide-container::after {
+    content: 'Departemen Teknik Mesin'; /* Footer teks */
+    color: #003366;
+    font-family: 'Lato', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    position: absolute;
+    bottom: 25px;
+    right: 60px;
+    z-index: 2;
+}
+
+
+.slide-container>* {
+    position: relative;
+    z-index: 1;
+}
+
+/* 2. CONSISTENT TYPOGRAPHY (Academic Theme) */
+
+/* Headings Font: Merriweather (Authoritative, Serif) */
+.slide-container h1,
+.slide-container h2,
+.slide-container h3,
+.slide-container .number,
+.slide-container blockquote {
+    color: #003366; /* Biru Navy Gelap */
+    font-weight: 700;
+    font-family: 'Merriweather', serif;
+    margin: 0;
+}
+
+/* Body Text Font: Lato (Clean, Sans-serif) */
+.slide-container p,
+.slide-container li,
+.slide-container .subtitle,
+.slide-container .number-label,
+.slide-container .chart-summary,
+.slide-container th,
+.slide-container td,
+.slide-container cite {
+    color: #1a1a1a; /* Teks Hitam Pekat */
+    font-family: 'Lato', sans-serif;
+}
+
+/* Consistent Font Sizes */
+.slide-container h1 {
+    font-size: 72px; /* Lebih besar untuk judul */
+    line-height: 1.1;
+}
+
+.slide-container .slide-title {
+    /* Ini adalah h2 */
+    font-size: 48px;
+    font-weight: 700;
+    margin-bottom: 40px;
+    text-align: left;
+    width: 100%;
+    border-bottom: 2px solid #c0a062; /* Aksen Emas/Tan */
+    padding-bottom: 15px;
+}
+
+.slide-container h3 {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 15px;
+}
+
+/* Unified body text size */
+.slide-container p,
+.slide-container li,
+.slide-container .subtitle,
+.slide-container .chart-summary,
+.slide-container th,
+.slide-container td {
+    font-size: 20px; /* Sedikit lebih besar untuk keterbacaan */
+    line-height: 1.6;
+}
+
+.slide-container .subtitle {
+    font-size: 24px;
+    font-weight: 400;
+    margin-top: 20px;
+    color: #1a1a1a;
+}
+
+.slide-container .content-area {
+    align-items: center;
+    display: flex;
+    flex-grow: 1;
+    justify-content: center;
+    width: 100%;
+}
+
+/* 3. LAYOUT DEFINITIONS */
+
+/* Title_Slide */
+.title-layout {
+    text-align: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+.title-layout h1 {
+    color: #003366;
+}
+.title-layout .subtitle {
+    color: #1a1a1a;
+}
+
+/* Section_Title */
+.section-title-layout {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: center;
+    text-align: center;
+    width: 100%;
+}
+.section-title-layout h2 {
+    font-size: 64px;
+    margin-bottom: 20px;
+    color: #003366;
+}
+.section-title-layout p {
+    font-size: 24px;
+    margin: 0 auto;
+    max-width: 800px;
+    color: #1a1a1a;
+}
+.section-title-layout hr {
+    background-color: #c0a062; /* Aksen Emas/Tan */
+    border: none;
+    height: 4px;
+    margin: 30px auto;
+    width: 100px;
+}
+
+/* Styled_Bullet_Points */
+.bullet-list {
+    width: 100%;
+    max-width: 900px;
+}
+.bullet-list ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+.bullet-list li {
+    padding-left: 50px; /* Ruang lebih untuk ikon besar */
+    position: relative;
+    margin-bottom: 25px; /* Jarak antar poin */
+    font-size: 22px;
+}
+.bullet-list i {
+    color: #003366; /* Ikon Biru Navy */
+    font-size: 30px;
+    left: 0;
+    margin-top: 5px;
+    position: absolute;
+    text-align: center;
+    top: 0;
+    width: 30px;
+}
+.bullet-list li strong {
+    color: #003366;
+    font-weight: 700;
+    font-family: 'Merriweather', serif;
+}
+
+/* Image_Right_Text_Left */
+.two-column {
+    align-items: flex-start;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 50px;
+    width: 100%;
+}
+.image-wrapper {
+    border-radius: 8px;
+    height: 400px;
+    overflow: hidden;
+    width: 100%;
+    border: 2px solid #003366; /* Border biru navy */
+    background: #ffffff;
+}
+.image-wrapper img {
+    height: 100%;
+    object-fit: contain; /* Contain agar diagram terlihat utuh */
+    width: 100%;
+    padding: 10px;
+}
+.two-column p {
+    font-size: 18px; /* Teks narasi sedikit lebih kecil */
+}
+
+/* Highlighted_Numbers */
+.highlight-numbers-layout > div:first-child {
+    flex: 0 0 40%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-right: 2px solid #c0a062;
+    padding-right: 40px;
+}
+.highlight-numbers-layout .number {
+    color: #003366;
+    font-size: 180px;
+    font-weight: 700;
+    font-family: 'Merriweather', serif;
+    line-height: 1;
+}
+.highlight-numbers-layout .number-label {
+    font-size: 28px;
+    font-weight: 700;
+    color: #1a1a1a;
+}
+.highlight-numbers-layout > div:last-child {
+    padding-left: 40px;
+}
+
+/* Two_Column_Tiled_Text */
+.two-column.tiled {
+    align-items: stretch;
+}
+.two-column.tiled > div {
+    background-color: #ffffff;
+    border-radius: 8px;
+    border: 2px solid #003366;
+    padding: 40px;
+    text-align: center;
+}
+.two-column.tiled h3 {
+    color: #003366;
+    border-bottom: 2px solid #c0a062;
+    padding-bottom: 10px;
+}
+
+/* Tiled_Text_With_Icons */
+.tiled-content {
+    align-items: stretch;
+    display: flex;
+    gap: 40px;
+    justify-content: center;
+    width: 100%;
+}
+.tile {
+    align-items: center;
+    background-color: #ffffff;
+    border-radius: 8px;
+    border: 2px solid #003366;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    justify-content: flex-start;
+    padding: 30px;
+    text-align: center;
+}
+.tile .icon {
+    color: #003366;
+    font-size: 48px;
+    margin-bottom: 20px;
+}
+.tile h3 {
+    color: #003366;
+}
+.tile p {
+    font-size: 16px; /* Teks di tile lebih kecil */
+}
+
+/* Bleed_Image_Right */
+.slide-container.bleed-image-layout {
+    padding: 0;
+}
+.slide-container.bleed-image-layout > .content-container {
+    padding: 60px 0 60px 60px;
+}
+.slide-container.bleed-image-layout > .image-container {
+    height: 100%;
+    overflow: hidden;
+    width: 100%;
+}
+.slide-container.bleed-image-layout img.bleed-image-side {
+    border-radius: 0 8px 8px 0;
+    height: 100%;
+    max-width: 100%;
+    max-height: 720px;
+    object-fit: cover;
+    object-position: center;
+    width: 100%;
+}
+.slide-container.bleed-image-layout .bleed-text-side ul {
+    font-size: 20px; padding-left: 30px;
+}
+.slide-container.bleed-image-layout .bleed-text-side li {
+    margin-bottom: 10px;
+}
+
+
+/* Table Layout */
+.table-layout {
+    width: 100%;
+}
+.table-layout table {
+    border-collapse: collapse;
+    width: 100%;
+}
+.table-layout th,
+.table-layout td {
+    border: 1px solid #003366; /* Border biru */
+    padding: 18px 24px;
+    text-align: left;
+    vertical-align: top;
+}
+.table-layout th {
+    background-color: #003366; /* Header biru */
+    color: #f5f5f5; /* Teks putih */
+    font-size: 20px;
+    font-family: 'Merriweather', serif;
+}
+.table-layout tr:nth-child(even) td {
+    background-color: #ffffff; /* Latar putih untuk baris genap */
+}
+.table-layout tr:nth-child(odd) td {
+    background-color: #f5f5f5; /* Latar krem untuk baris ganjil */
+}
+
+/* Tiled_Images */
+.image-tile {
+    flex: 1;
+    text-align: center;
+}
+.image-tile .image-wrapper {
+    height: 250px;
+    margin-bottom: 20px;
+    border: 2px solid #003366;
+    background: #fff;
+}
+.image-tile .image-wrapper img {
+    object-fit: cover; /* Cover untuk aplikasi industri */
+    padding: 0; /* Tanpa padding */
+}
+.image-tile p {
+    font-size: 18px;
+    font-weight: 700;
+    color: #003366;
+}
+
+/* Quote Layout */
+.quote-layout {
+    text-align: center;
+    width: 80%;
+}
+.quote-layout blockquote {
+    font-size: 36px; /* Sedikit lebih kecil agar pas */
+    font-weight: 400;
+    line-height: 1.4;
+    margin: 0 0 30px 0;
+    padding: 0 40px;
+    position: relative;
+}
+.quote-layout blockquote::before,
+.quote-layout blockquote::after {
+    color: #c0a062; /* Aksen emas */
+    content: '"';
+    font-size: 100px;
+    line-height: 0;
+    position: absolute;
+}
+.quote-layout blockquote::before {
+    left: -10px;
+    top: 30px;
+}
+.quote-layout blockquote::after {
+    bottom: 10px;
+    right: -10px;
+}
+.quote-layout cite {
+    color: #1a1a1a;
+    font-size: 22px;
+    font-style: normal;
+    font-family: 'Lato', sans-serif;
+}
+
+/* Q&A Layout */
+.qa-layout {
+    text-align: center;
+    width: 100%;
+    align-self: center;
+}
+.qa-layout h2 {
+    font-size: 80px;
+    color: #003366;
+    margin-bottom: 20px;
+}
+.qa-layout p {
+    font-size: 24px;
+    color: #1a1a1a;
+}
+.qa-layout .contact-info {
+    color: #003366;
+    font-size: 22px;
+    font-weight: 700;
+    margin-top: 40px;
+}
+
+/* Penyesuaian Formula MathML */
+math {
+    font-size: 1.2em; /* Membuat formula sedikit lebih besar */
+    color: #003366;
+    font-family: "Merriweather", serif;
+    padding: 5px 10px;
+    background: #ffffff;
+    border: 1px solid #c0a062;
+    border-radius: 4px;
+    display: math; /* Memastikan rendering yang tepat */
+    margin: 10px 0;
+}
+.two-column.tiled math {
+    font-size: 1.5em;
+    display: math;
+}
+.table-layout math {
+    font-size: 1.0em; /* Ukuran normal di dalam tabel */
+    background: none;
+    border: none;
+    padding: 0;
+    display: math;
+}
+/* Penyesuaian formula khusus */
+.highlight-formula {
+    font-size: 70px;
+    padding: 20px;
+    line-height: 1.2;
+    border: 2px solid #003366;
+    background: #fff;
+    border-radius: 8px;
+}
+
+
+/* Narasi Profesor */
+.narasi-profesor {
+    font-size: 18px !important;
+    font-style: italic;
+    color: #333; /* Sedikit lebih redup */
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid #c0a062;
+    width: 100%;
+}
+
+</style>
+</head>
+<body>
+
+<div class="slide-container" id="slide1">
+    <div class="title-layout">
+        <h1>Energi dalam Teknik Mesin</h1>
+        <p class="subtitle">Analisis Fundamental 'Mata Uang' Alam Semesta dalam Perancangan Sistem Mekanis</p>
+    </div>
+    <div style="position: absolute; bottom: 25px; left: 60px; z-index: 2; color: #003366; font-family: 'Lato', sans-serif; font-size: 14px; font-weight: 700;">Prof. Dr. Insinyur | Kuliah Mekanika & Termodinamika</div>
+</div>
+
+<div class="slide-container" id="slide2">
+    <h2 class="slide-title">Pendahuluan Konseptual: Tinjauan Kritis Energi</h2>
+    <div class="content-area">
+        <div class="two-column">
+            <div>
+                <ul style="padding-left: 20px; font-size: 20px; list-style-type: square;">
+                    <li style="margin-bottom: 15px;"><strong>Definisi Klasik:</strong> Kapasitas atau kemampuan untuk melakukan kerja (Work).</li>
+                    <li style="margin-bottom: 15px;"><strong>Definisi Fungsional (Teknik):</strong> Kuantitas terukur yang *ditransfer* ke sistem untuk melakukan aksi (menerapkan gaya, menghasilkan panas).</li>
+                    <li style="margin-bottom: 15px;"><strong>Prinsip Kerja-Energi:</strong> Kerja adalah *proses transfer* energi; ini adalah jembatan antara Dinamika (gaya) dan Termodinamika (energi).</li>
+                    <li style="margin-bottom: 15px;"><strong>Mengapa Fondasional?</strong> Karena energi *kekal*. Ia mengikat semua fenomena dan memungkinkan kita memprediksi perilaku sistem.</li>
+                </ul>
+                <p class="narasi-profesor">
+                    Definisi buku teks—'kapasitas melakukan kerja'—agak abstrak. Mari kita pertajam. Anggaplah Energi sebagai *kuantitas akuntansi* fundamental alam semesta. Kerja, di sisi lain, adalah *transaksi*—proses mentransfer energi dari satu 'rekening' ke 'rekening' lainnya. Tugas Anda sebagai insinyur adalah menjadi akuntan yang cermat.
+                </p>
+            </div>
+            <div>
+                <div class="image-wrapper"><img src="http://googleusercontent.com/image_collection/image_retrieval/13816744047608144211" alt="Diagram prinsip kerja-energi menunjukkan gaya, perpindahan, gesekan, dan panas"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="slide-container" id="slide3">
+    <h2 class="slide-title">Taksonomi Energi dalam Sistem Mekanis</h2>
+    <div class="content-area">
+        <div class="table-layout">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Bentuk Energi</th>
+                        <th>Deskripsi Konseptual</th>
+                        <th>Contoh Teknik Mesin</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Kinetik (<math><msub><mi>E</mi><mi>k</mi></msub></math>)</strong></td>
+                        <td>Energi gerak (Translasi: <math><mfrac><mn>1</2</mfrac><mi>m</mi><msup><mi>v</mi><mn>2</mn></msup></math>)</td>
+                        <td>Roda gila (flywheel), massa piston, fluida yang mengalir.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Potensial (<math><msub><mi>E</mi><mi>p</mi></msub></math>)</strong></td>
+                        <td>Energi tersimpan dalam konfigurasi (Gravitasi: <math><mi>m</mi><mi>g</mi><mi>h</mi></math> | Elastis: <math><mfrac><mn>1</2</mfrac><mi>k</mi><msup><mi>x</mi><mn>2</mn></msup></math>)</td>
+                        <td>Air di bendungan (sistem hidro), pegas suspensi, akumulator hidrolik.</td>
+                    </tr>
+                     <tr>
+                        <td><strong>Termal (<math><msub><mi>E</mi><mi>termal</mi></msub></math>)</strong></td>
+                        <td>Energi internal acak (panas) dari gerak molekuler.</td>
+                        <td>Panas hasil pembakaran, panas akibat gesekan pada bantalan (bearing).</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Kimia (<math><msub><mi>E</mi><mi>kimia</mi></msub></math>)</strong></td>
+                        <td>Energi yang tersimpan dalam ikatan molekuler.</td>
+                        <td>Bahan bakar (bensin, solar), baterai, reaksi eksotermik.</td>
+                    </tr>
+                </tbody>
+            </table>
+             <p class="narasi-profesor" style="text-align: center; width: 100%;">
+                Sebuah mesin pembakaran internal adalah studi kasus sempurna: ia mengubah Energi *Kimia* (bensin) $\rightarrow$ Energi *Termal* (ledakan) $\rightarrow$ Energi *Mekanik/Kinetik* (gerakan piston).
+            </p>
+        </div>
+    </div>
+</div>
+
+<div class="slide-container" id="slide4">
+    <h2 class="slide-title">Postulat Fundamental: Hukum Kekekalan Energi</h2>
+    <div class="content-area">
+        <div class="two-column">
+            <div>
+                <h3>Hukum Pertama Termodinamika</h3>
+                <ul style="padding-left: 20px; font-size: 20px; list-style-type: square;">
+                    <li style="margin-bottom: 15px;"><strong>Prinsip Inti:</strong> Energi tidak dapat diciptakan atau dimusnahkan; ia hanya dapat diubah dari satu bentuk ke bentuk lain.</li>
+                    <li style="margin-bottom: 15px;"><strong>Persamaan Neraca Energi (Sistem Tertutup):</strong>
+                         <math><mi>&Delta;</mi><msub><mi>E</mi><mi>sistem</mi></msub><mo>=</mo><msub><mi>E</mi><mi>masuk</mi></msub><mo>-</mo><msub><mi>E</mi><mi>keluar</mi></msub></math>
+                    </li>
+                    <li style="margin-bottom: 15px;"><strong>Implikasi:</strong> <math><mi>&Delta;</mi><msub><mi>E</mi><mi>k</mi></msub><mo>+</mo><mi>&Delta;</mi><msub><mi>E</mi><mi>p</mi></msub><mo>+</mo><mi>&Delta;</mi><msub><mi>E</mi><mi>internal</mi></msub><mo>=</mo><mi>Q</mi><mo>-</mo><mi>W</mi></math></li>
+                    <li style="margin-bottom: 15px;"><strong>Realitas:</strong> Energi *terdegradasi* ke bentuk yang kurang bermanfaat (panas).</li>
+                </ul>
+                <p class="narasi-profesor">
+                    Hukum Pertama adalah prinsip akuntansi kita. Totalnya harus selalu nol. Jika Anda merancang mesin yang diklaim menghasilkan lebih banyak energi daripada yang dikonsumsi, Anda tidak melanggar hukum; Anda hanya salah menghitung.
+                </p>
+            </div>
+            <div>
+                <div class="image-wrapper"><img src="http://googleusercontent.com/image_collection/image_retrieval/12068007421303866162" alt="Diagram Sankey untuk mesin pembakaran internal menunjukkan energi bahan bakar diubah menjadi kerja bermanfaat dan berbagai kerugian panas"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="slide-container" id="slide5">
+    <h2 class="slide-title">Teorema Kerja-Energi: Jembatan Antara Gaya dan Energi</h2>
+    <div class="content-area">
+        <div class="two-column tiled">
+            <div>
+                <h3>Impuls-Momentum (Gaya vs. Waktu)</h3>
+                <p>Menganalisis efek gaya terhadap *durasi waktu* untuk menemukan perubahan momentum.</p>
+                <math><mover><mi>J</mi><mo>&rarr;</mo></mover><mo>=</mo><mo>&int;</mo><mover><mi>F</mi><mo>&rarr;</mo></mover><mi>d</mi><mi>t</mi><mo>=</mo><mi>&Delta;</mi><mover><mi>p</mi><mo>&rarr;</mo></mover></math>
+            </div>
+            <div>
+                <h3>Kerja-Energi (Gaya vs. Jarak)</h3>
+                <p>Menganalisis efek gaya terhadap *perpindahan (jarak)* untuk menemukan perubahan energi kinetik.</p>
+                <math><msub><mi>W</mi><mi>netto</mi></msub><mo>=</mo><mo>&int;</mo><mover><mi>F</mi><mo>&rarr;</mo></mover><mo>&sdot;</mo><mi>d</mi><mover><mi>s</mi><mo>&rarr;</mo></mover><mo>=</mo><mi>&Delta;</mi><msub><mi>E</mi><mi>k</mi></msub></math>
+            </div>
+        </div>
+        <p class="narasi-profesor" style="text-align: center; width: 100%;">
+            Ini adalah alat analisis yang sangat elegan. Jika Anda hanya peduli pada kecepatan akhir setelah didorong sejauh *jarak* tertentu, lupakan $F=ma$ dan waktu. Cukup hitung *Kerja* netto, dan itu *pasti* sama dengan perubahan energi kinetiknya.
+        </p>
+    </div>
+</div>
+
+<div class="slide-container" id="slide6">
+    <h2 class="slide-title">Dinamika Rotasi: Energi Kinetik Angular</h2>
+    <div class="content-area">
+        <div class="two-column highlight-numbers-layout">
+            <div>
+                <div class="highlight-formula">
+                   <math><msub><mi>E</mi><mrow><mi>k</mi><mo>,</mo><mi>rot</mi></mrow></msub><mo>=</mo><mfrac><mn>1</2</mfrac><mi>I</mi><msup><mi>&omega;</mi><mn>2</mn></msup></math>
+                </div>
+                <div class="number-label" style="margin-top: 20px;">Energi Kinetik Rotasi</div>
+            </div>
+            <div>
+                <h3>Analogi Langsung dari Gerak Linear</h3>
+                <p>Prinsipnya identik, hanya variabelnya yang berubah:</p>
+                <ul>
+                    <li>Massa (m) $\rightarrow$ Momen Inersia ($I$)</li>
+                    <li>Kecepatan (v) $\rightarrow$ Kecepatan Sudut ($\omega$)</li>
+                </ul>
+                <p>Kerja rotasional dilakukan oleh Torsi ($\tau$) melalui perpindahan sudut ($\theta$): <math><msub><mi>W</mi><mi>rot</S</mi></msub><mo>=</mo><mo>&int;</mo><mi>&tau;</mi><mi>d</mi><mi>&theta;</mi></math></p>
+                <p class="narasi-profesor">
+                    Jangan hafalkan ini sebagai rumus baru. Pahami ini sebagai *konsekuensi logis*. $I$ adalah resistansi terhadap putaran. $\omega$ adalah kecepatan putaran. Flywheel (roda gila) menggunakan prinsip ini: $I$ yang besar menyimpan $E_k$ untuk memperhalus putaran mesin.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="slide-container" id="slide7">
+    <h2 class="slide-title">Konversi Energi dan Realitas Efisiensi ($\eta$)</h2>
+    <div class="content-area">
+        <div class="tiled-content">
+            <div class="tile">
+                <div class="icon"><i class="fa-solid fa-car"></i></div>
+                <h3>Mesin Bensin (Siklus Otto)</h3>
+                <p>Konversi: Kimia $\rightarrow$ Termal $\rightarrow$ Mekanik</p>
+                <p><strong><math><mi>&eta;</mi><mo>&approx;</mo><mn>20%</mn><mo>-</mo><mn>30%</mn></math></strong></p>
+                <p style="font-size: 14px;">Mayoritas energi hilang sebagai panas buang melalui knalpot dan pendingin.</p>
+            </div>
+            <div class="tile">
+                <div class="icon"><i class="fa-solid fa-industry"></i></div>
+                <h3>Turbin Gas (Siklus Brayton)</h3>
+                <p>Konversi: Kimia $\rightarrow$ Termal $\rightarrow$ Mekanik</p>
+                 <p><strong><math><mi>&eta;</mi><mo>&approx;</mo><mn>40%</mn></math></strong></p>
+                 <p style="font-size: 14px;">Digunakan di pembangkit listrik; siklus kombinasi bisa mencapai $\approx$60%.</p>
+            </div>
+            <div class="tile">
+                <div class="icon"><i class="fa-solid fa-bolt"></i></div>
+                <h3>Motor Listrik</h3>
+                <p>Konversi: Listrik $\rightarrow$ Mekanik</Mekanik>
+                 <p><strong><math><mi>&eta;</mi><mo>&approx;</mo><mn>90%</mn><mo>-</mo><mn>95%</mn></math></strong></p>
+                 <p style="font-size: 14px;">Konversi sangat efisien karena tidak melalui siklus termal yang terbatas.</p>
+            </div>
+        </div>
+        <p class="narasi-profesor" style="text-align: center; width: 100%;">
+            Inilah *medan pertempuran* utama insinyur mesin. Efisiensi ($\eta = P_{out} / P_{in}$) adalah *skor* kita dalam permainan melawan disipasi dan Hukum Kedua Termodinamika.
+        </p>
+    </div>
+</div>
+
+<div class="slide-container" id="slide8">
+    <h2 class="slide-title">Disipasi Energi: Musuh yang Tak Terhindarkan</h2>
+    <div class="content-area">
+        <div class="two-column">
+            <div>
+                <h3>Sumber Kerugian Utama (Losses)</h3>
+                <ul style="padding-left: 20px; font-size: 20px; list-style-type: square;">
+                    <li style="margin-bottom: 15px;"><strong>Gesekan (Friksi):</strong> Kerja oleh gaya gesek $\rightarrow$ $E_{termal}$ (panas pada bantalan, kerugian pemompaan).</li>
+                    <li style="margin-bottom: 15px;"><strong>Panas Buang (Exhaust):</strong> Energi termal yang *sengaja* dibuang untuk menyelesaikan siklus (Hukum II Termodinamika).</li>
+                    <li style="margin-bottom: 15px;"><strong>Getaran dan Suara:</strong> Energi mekanik yang terpancar ke lingkungan.</li>
+                    <li style="margin-bottom: 15px;"><strong>Entropi (S):</strong> Ukuran *degradasi* energi. Setiap proses nyata (irreversible) akan meningkatkan entropi total alam semesta.</li>
+                </ul>
+                <p class="narasi-profesor">
+                    Di dunia nyata, gesekan ada di mana-mana. Energi tidak *hilang*, tetapi *terdegradasi* ke bentuk yang tidak dapat kita gunakan (panas lingkungan). Tugas Anda bukan mengeliminasi kerugian—itu mustahil—tetapi *memitigasinya*.
+                </p>
+            </div>
+            <div>
+                 <div class="image-wrapper"><img src="http://googleusercontent.com/image_collection/image_retrieval/17855642456485800473" alt="Diagram P-V (Tekanan-Volume) membandingkan siklus Otto ideal dengan siklus aktual yang menunjukkan kerugian"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="slide-container" id="slide9">
+    <h2 class="slide-title">Analisis Energi sebagai Alat Perancangan</h2>
+    <div class="content-area">
+        <div class="bullet-list">
+            <ul>
+                <li><i class="fa-solid fa-calculator"></i>
+                    <strong>Analisis Daya (Power, <math><mi>P</mi><mo>=</mo><mi>d</mi><mi>E</mi><mo>/</mo><mi>d</mi><mi>t</mi></math>):</strong>
+                    Daya adalah *laju* transfer energi. Ini menentukan ukuran motor/mesin yang dibutuhkan. (<math><mi>P</mi><mo>=</mo><mi>F</mi><mi>v</mi></math> | <math><mi>P</mi><mo>=</mo><mi>&tau;</mi><mi>&omega;</mi></math>).
+                </li>
+                <li><i class="fa-solid fa-layer-group"></i>
+                    <strong>Pemilihan Material:</strong>
+                    *Toughness* (ketangguhan) adalah kemampuan material menyerap energi sebelum patah. Rasio kekuatan-ke-berat mengurangi <math><msub><mi>E</mi><mi>k</mi></msub></math> yang dibutuhkan.
+                </li>
+                <li><i class="fa-solid fa-cogs"></i>
+                    <strong>Efisiensi Sistem Transmisi:</strong>
+                    Menganalisis kerugian energi (panas gesekan) pada setiap tahap: gearbox, kopling, sabuk, dan bantalan.
+                </li>
+            </ul>
+            <p class="narasi-profesor">
+                Di sinilah teori bertemu praktik. Saat Anda merancang *powertrain*, Anda menghitung *daya*. Jika mobil butuh 20 kW untuk melaju 100 km/jam, dan efisiensi drivetrain Anda 85%, maka mesin Anda harus menyuplai $20 / 0.85 = 23.5$ kW. Analisis energi adalah studi kelayakan termodinamika Anda.
+            </p>
+        </div>
+    </div>
+</div>
+
+<div class="slide-container" id="slide10">
+    <h2 class="slide-title">Observasi Empiris: Energi di Laboratorium</h2>
+    <div class="content-area">
+        <div class="table-layout">
+            <div style="text-align: center; margin-bottom: 20px;">
+                <p style="font-size: 22px;"><strong>Studi Kasus:</strong> Benda Menggelinding di Bidang Miring (Verifikasi <math><msub><mi>E</mi><mi>p</mi></msub><mo>&rarr;</mo><msub><mi>E</mi><mi>k</mi></msub></math>)</p>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Parameter</th>
+                        <th>Metodologi (Eksperimen)</th>
+                        <th>Tujuan Analisis</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Input (Awal)</strong></td>
+                        <td>Ukur massa ($m$), tinggi ($h$), Momen Inersia ($I$).</td>
+                        <td>Hitung Energi Potensial Awal: <math><msub><mi>E</mi><mi>p</mi></msub><mo>=</mo><mi>m</mi><mi>g</mi><mi>h</mi></math></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Output (Akhir)</strong></td>
+                        <td>Ukur kecepatan linear ($v$) dan kecepatan sudut ($\omega$) di dasar bidang.</td>
+                        <td>Hitung Energi Kinetik Akhir: <math><msub><mi>E</mi><mi>k</mi></msub><mo>=</mo><mfrac><mn>1</2</mfrac><mi>m</mi><msup><mi>v</mi><mn>2</mn></msup><mo>+</mo><mfrac><mn>1</2</mfrac><mi>I</mi><msup><mi>&omega;</mi><mn>2</mn></msup></math></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Disipasi</strong></td>
+                        <td>Selisih antara Input dan Output.</td>
+                        <td>Hitung Energi Hilang: <math><msub><mi>E</mi><mi>hilang</mi></msub><mo>=</mo><msub><mi>E</mi><mi>p</mi></msub><mo>-</mo><msub><mi>E</mi><mi>k</mi></msub></math> (Kerja oleh gesekan)</td>
+                    </tr>
+                </tbody>
+            </table>
+             <p class="narasi-profesor" style="text-align: center; width: 100%;">
+                Jangan pernah hanya percaya pada persamaan. Buktikan. Di laboratorium, Anda akan melihat secara langsung bahwa <math><msub><mi>E</mi><mi>k</mi></msub></math> akhir *selalu* lebih kecil dari <math><msub><mi>E</mi><mi>p</mi></msub></math> awal. Kuantifikasi kerugian adalah langkah pertama untuk memperbaikinya.
+            </p>
+        </div>
+    </div>
+</div>
+
+<div class="slide-container bleed-image-layout" id="slide11">
+    <div class="content-container">
+        <h2 class="slide-title">Imperatif Modern: Energi dan Keberlanjutan</h2>
+        <div class="content-area">
+            <div class="bleed-text-side">
+                <p>Pemahaman energi bukan lagi hanya optimasi teknis; ini adalah imperatif etis dan profesional.</p>
+                <h3>Peran Vital Teknik Mesin:</h3>
+                <ul class="bleed-text-side">
+                    <li><strong>Sisi Suplai (Supply-Side):</strong> Merancang sistem energi terbarukan yang lebih efisien (turbin angin, sistem geotermal, panel surya).</li>
+                    <li><strong>Sisi Permintaan (Demand-Side):</strong> Merancang sistem mekanis yang mengonsumsi *lebih sedikit* energi (kendaraan ringan, HVAC efisien, manufaktur hemat energi).</li>
+                </ul>
+                <h3>Pergeseran Paradigma:</h3>
+                <p>Dari 'desain untuk kinerja' menjadi 'desain untuk kinerja *per Watt*'.</p>
+                 <p class="narasi-profesor" style="border: none; padding-top: 10px;">
+                    Abad ke-21 memiliki fokus yang berbeda: 'bagaimana mencapai fungsi yang sama dengan *daya lebih kecil*'. Efisiensi bukan lagi bonus, itu adalah *kewajiban*.
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="image-container">
+        <img class="bleed-image-side" src="http://googleusercontent.com/image_collection/image_retrieval/13816744047608144211" alt="Kolase turbin angin dan panel surya, merepresentasikan energi keberlanjutan">
+    </div>
+</div>
+
+
+<div class="slide-container" id="slide12">
+    <h2 class="slide-title">Kesimpulan Reflektif: Sintesis Konsep</h2>
+    <div class="content-area">
+        <div class="quote-layout">
+            <blockquote>Menguasai energi bukan berarti menghafal $\frac{1}{2}mv^2$. Menguasai energi berarti memahami *konsekuensi* dari persamaan tersebut dalam sistem yang kompleks, nyata, dan memiliki batasan.</blockquote>
+            <cite>— Profesor Mekanika</cite>
+            <p class="narasi-profesor" style="text-align: center; width: 100%;">
+                Lihatlah mobil yang bergerak bukan sebagai objek dengan kecepatan, tetapi sebagai *gudang* energi kinetik. Lihatlah mesin yang panas bukan sebagai mesin yang bekerja keras, tetapi sebagai mesin yang *membuang* potensi berharga. Gunakan prinsip-prinsip ini. Terima kasih.
+            </p>
+        </div>
+    </div>
+</div>
+
+<div class="slide-container" id="slide13" style="background-color: #003366;">
+    <style>
+        #slide13::after {
+            color: #f5f5f5;
+        }
+    </style>
+    <div class="qa-layout">
+        <h2 style="color: #f5f5f5;">Diskusi & Pertanyaan?</h2>
+        <p style="color: #f5f5f5;">Terima kasih atas perhatian Anda.</p>
+        <div class="contact-info" style="color: #c0a062;">
+            Prof. Dr. Insinyur | Departemen Teknik Mesin
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>
